@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/f-4/keepSafe-Server#readme",
   "dependencies": {
+    "bluebird": "^3.5.0",
     "body-parser": "^1.17.2",
     "dotenv": "^4.0.0",
     "express": "^4.15.4",

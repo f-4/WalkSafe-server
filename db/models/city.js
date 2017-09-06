@@ -1,7 +1,7 @@
 module.exports = function(sequelize, DataTypes) {
-  const City = sequelize.define('City', {
+  const city = sequelize.define('city', {
     id: {type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
-    cityName: DataTypes.STRING
+    city_name: DataTypes.STRING
   });
-  return City;
+  return city;
 }

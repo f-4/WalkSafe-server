@@ -1,14 +1,14 @@
 module.exports = function(sequelize, DataTypes) {
-  const User = sequelize.define('User', {
+  const user = sequelize.define('user', {
     id: {type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
     username: DataTypes.STRING,
     email: DataTypes.STRING,
-    avatarUrl: DataTypes.STRING,
-    accessToken: DataTypes.STRING
+    avatar_url: DataTypes.STRING,
+    access_token: DataTypes.STRING
   });
 
-  User.associate = function(models) {
-    User.hasMany(models.Contact);
+  user.associate = function(models) {
+    user.hasMany(models.contact);
   }
-  return User;
+  return user;
 }
