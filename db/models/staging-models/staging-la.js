@@ -1,5 +1,5 @@
-module.exports = function(sequelize, DataTypes) {
-  const Staging_la = sequelize.define('staging_la', {
+module.exports = function StagingLaSchema(sequelize, DataTypes) {
+  const StagingLa = sequelize.define('staging_la', {
     lurn_sak: DataTypes.INTEGER,
     incident_date: DataTypes.DATE,
     stat: DataTypes.STRING,
@@ -7,15 +7,14 @@ module.exports = function(sequelize, DataTypes) {
     street: DataTypes.STRING,
     city: DataTypes.STRING,
     zip: DataTypes.INTEGER,
-    xy_point:DataTypes.STRING,
-    incident_id:DataTypes.STRING,
-    reporting_district:DataTypes.INTEGER,
-    seq:DataTypes.INTEGER,
-    unit_id:DataTypes.STRING,
-    unit_name:DataTypes.STRING,
+    xy_point: DataTypes.STRING,
+    incident_id: DataTypes.STRING,
+    reporting_district: DataTypes.INTEGER,
+    seq: DataTypes.INTEGER,
+    unit_id: DataTypes.STRING,
+    unit_name: DataTypes.STRING,
     createdAt: DataTypes.DATE,
     updatedAt: DataTypes.DATE,
   });
-  return Staging_la;
-}
-
+  return StagingLa;
+};
