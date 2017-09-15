@@ -5,6 +5,7 @@ const GoogleStrategy = require('passport-google-oauth20');
 const FacebookStrategy = require('passport-facebook');
 // // possibly add database here for saving usernames and contacts
 // const db = require('../db');
+console.log('Authentication should not be loading');
 
 const transformFacebookProfile = profile => ({
   name: profile.name,

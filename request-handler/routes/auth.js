@@ -2,7 +2,7 @@
 
 // possibly include database here for sessions
 // const db = require('../../db/config');
-import { passport, authenticateFb, authenticateGoogle, callbackGoogle, callbackFb } from '../../authentication'
+import { passport, authenticateFb, authenticateGoogle, callbackGoogle, callbackFb } from '../../authentication';
 // const passport = require('../../authentication').passport;
 
 module.exports = {
@@ -18,7 +18,7 @@ module.exports = {
     },
     facebook: function authenticateFacebookFunc(req, res) {
       if (req.url === '/auth/facebook') {
-        //console.log('WHAT IS AUTHENTICATE FACEBOOK req:', req);
+        // console.log('WHAT IS AUTHENTICATE FACEBOOK req:', req);
         authenticateFb(req, res);
       } else if (req.url === '/auth/facebook/callback') {
         callbackFb(req, res);
