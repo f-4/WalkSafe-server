@@ -10,7 +10,6 @@ module.exports = {
     // Retrieve geographical coordinates of requested address
     search: function getCoordinates(req) {
       const address = req.query.address;
-
       return mapboxClient.geocodeForward(address, (err) => {
         if (err) { console.log(err); }
       })
