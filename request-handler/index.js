@@ -4,7 +4,5 @@ const routers = require('./api');
 const app = express();
 
 app.use('/api', routers);
->>>>>>> Ready for deployment
->>>>>>> ESlint cleanup
 
 module.exports = app;
