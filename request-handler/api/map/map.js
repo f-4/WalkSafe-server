@@ -4,6 +4,7 @@ import axios from 'axios';
 import util from './../../util/utility';
 // import {router, express} from './../api.js';
 
+
 const router = express.Router();
 const mapboxClient = new mapbox(process.env.MAPBOX_ACCESS_TOKEN);
 const crimeSpot =  (input) => {
