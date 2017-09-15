@@ -2,7 +2,6 @@
 import axios from 'axios';
 
 const mapbox = require('mapbox');
-
 const mapboxClient = new mapbox(process.env.MAPBOX_ACCESS_TOKEN);
 console.log('Spotcrime key', process.env.SPOTCRIME_API_KEY);
 
