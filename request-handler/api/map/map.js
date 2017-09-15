@@ -20,6 +20,7 @@ const crimeSpot =  (input) => {
     )
       .then((result) => {
         // Map crimes into annotation objects
+        console.log('what is the crime result', result);
         const crimes = result.data.crimes.map(crime => ({
           coordinates: [crime.lat, crime.lon],
           type: 'point',
