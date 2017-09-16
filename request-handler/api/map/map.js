@@ -38,7 +38,7 @@ const crimeSpot =  (input) => {
         resolve(crimes);
       })
       .catch((err) => {
-        console.log('line 52 ', err);
+        console.log('line 52 error:', err);
         resolve(err);
       });
   });
