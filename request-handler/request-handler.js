@@ -14,7 +14,6 @@ import Users from'./../db/collections/users.js';
 import util from './util/utility';
 const app = express();
 
-console.log('heuh.rnveenvy')
 
 app.use(session({
   secret: 'In da hood',
