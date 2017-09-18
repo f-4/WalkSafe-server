@@ -1,9 +1,9 @@
 import express from 'express';
 import mapbox from 'mapbox';
 import axios from 'axios';
+import util from './../../util/utility';
 
 const router = express.Router();
-
 const mapboxClient = new mapbox(process.env.MAPBOX_ACCESS_TOKEN);
 const crimeSpot = function(input) {
   return new Promise ((resolve, reject) => {
@@ -36,13 +36,15 @@ const crimeSpot = function(input) {
       })
       .catch(err => {
         console.log('line 52 ', err);
-        resolve(error);
+        resolve(err);
       });
   })
 };
 
-router.get('/search', (req, res) => {
+
+router.get('/search', util.checkUser, (req, res) => {
   const address = req.query.address;
+  console.log('line 46 map.js server search evoked req.session', req.session)
   mapboxClient.geocodeForward(address, (err) => {
     if (err) { console.log(err) }
   })

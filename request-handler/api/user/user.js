@@ -2,9 +2,9 @@ import express from 'express';
 import db from './../../../db/config.js';
 const router = express.Router();
 
-router.get('/contacts', (req, res) => {
-  console.log('api/user/contacts get request', req);
-  res.send('test get request for /contacts')
+router.get('/user', (req, res) => {
+  // console.log('api/user/user get request', req.session);
+  res.send('test get request for /user')
   // ADD DB QUERY HERE
     //EXAMPLE
       // db.myTable
@@ -13,9 +13,10 @@ router.get('/contacts', (req, res) => {
       //   .catch(console.error);
 });
 
-router.post('/contacts', (req, res) => {
-  console.log('api/user/contacts post request', req);
-  res.send('test post request for /contacts')
+router.post('/user', (req, res) => {
+ console.log('api/user/user post request', req.session);
+
+  res.send('test post request for /user')
   // ADD DB QUERY HERE
     //EXAMPLE
     //const contactName= req.params.contactName;

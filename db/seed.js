@@ -8,6 +8,8 @@ const dbcreatUser = () => db.user.create({
       email: 'fantastic4@gmail.com',
       avatarUrl: 'https://avatars2.githubusercontent.com/u/31486494?v=4&s=200',
       accessToken: 'abc123',
+      google_token:'abc12345',
+      google_id:'123',
       contacts: [
         {
           contact_name: 'Human Torch',
