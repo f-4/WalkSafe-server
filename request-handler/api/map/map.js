@@ -3,9 +3,11 @@ import mapbox from 'mapbox';
 import axios from 'axios';
 import util from './../../util/utility';
 
+// import passport from 'passport';
+
 const router = express.Router();
 const mapboxClient = new mapbox(process.env.MAPBOX_ACCESS_TOKEN);
-const crimeSpot = function(input) {
+const crimeSpot =  (input) => {
   return new Promise ((resolve, reject) => {
     axios.get('http://api.spotcrime.com/crimes.json',
       { params: {
@@ -42,7 +44,7 @@ const crimeSpot = function(input) {
 };
 
 
-router.get('/search', util.checkUser, (req, res) => {
+router.get('/search', (req, res) => {
   const address = req.query.address;
   console.log('line 46 map.js server search evoked req.session', req.session)
   mapboxClient.geocodeForward(address, (err) => {

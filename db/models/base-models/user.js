@@ -5,7 +5,7 @@ module.exports = function UserSchema(sequelize, DataTypes) {
     email: DataTypes.STRING,
     google_id: DataTypes.STRING,
     google_token: DataTypes.STRING,
-    avatar_url: DataTypes.STRING,
+    avatar: DataTypes.STRING,
     access_token: DataTypes.STRING,
   });
 

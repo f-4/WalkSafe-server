@@ -24,7 +24,7 @@ exports.createNewUser = ({ name, avatar, email, google_id }) => {
   return db.user.create({
     username: name,
     email: email,
-    avatarUrl: avatar,
+    avatar: avatar,
     accessToken: 'abc123',
     google_token:'abc12345',
     google_id: google_id,

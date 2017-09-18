@@ -1,3 +1,5 @@
+const passport = require('passport');
+
 var isLoggedIn = function(req, res, next) {
   console.log('map.js req.session', req.session)
   console.log('map.js req isAuthenticated', req.isAuthenticated())

@@ -6,7 +6,7 @@ const path = require('path');
 const dbcreatUser = () => db.user.create({
       username: 'Fantastic4',
       email: 'fantastic4@gmail.com',
-      avatarUrl: 'https://avatars2.githubusercontent.com/u/31486494?v=4&s=200',
+      avatar: 'https://avatars2.githubusercontent.com/u/31486494?v=4&s=200',
       accessToken: 'abc123',
       google_token:'abc12345',
       google_id:'123',
