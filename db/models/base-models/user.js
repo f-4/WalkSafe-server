@@ -3,7 +3,9 @@ module.exports = function UserSchema(sequelize, DataTypes) {
     id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
     username: DataTypes.STRING,
     email: DataTypes.STRING,
-    avatar_url: DataTypes.STRING,
+    google_id: DataTypes.STRING,
+    google_token: DataTypes.STRING,
+    avatar: DataTypes.STRING,
     access_token: DataTypes.STRING,
   });
 
