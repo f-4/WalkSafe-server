@@ -25,7 +25,7 @@ router.get('/google/callback',
   passport.authenticate('google', { failureRedirect: '/google' }),
   (req, res) => {
     console.log('req.heyisAuthenticae auth.js', req.isAuthenticated());
-    console.log('req.hey ssession', req.session);
+    console.log('req.hey session', req.session);
     return res.redirect('walksafe://login?user=' + JSON.stringify(req.user));
   });
 

@@ -11,10 +11,10 @@ import GoogleStrategy from'passport-google-oauth20';
 import FacebookStrategy from'passport-facebook';
 
 import Users from'./../db/collections/users.js';
-
+import util from './util/utility';
 const app = express();
 
-
+console.log('heuh.rnveenvy')
 
 app.use(session({
   secret: 'In da hood',
