@@ -50,7 +50,7 @@ router.get('/search', (req, res) => {
   mapboxClient.geocodeForward(address, (err) => {
     if (err) { console.log(err) }
   })
-    .then( result => {
+    .then(result => {
       console.log('Return search result', result.entity.features[0]);
       res.send(result.entity.features[0]);
     })
@@ -63,7 +63,16 @@ router.get('/crimes', (req, res) => {
       console.log(crimes)
       res.send(crimes);
     })
-    .catch(err => res.status(404).send('Bad Request'))
-})
+    .catch(err => res.status(404).send('Bad Request'));
+});
+
+router.get('/directions', (req, res) => {
+  axios.get(`https://api.mapbox.com/directions/v5/mapbox/walking/${req.query.start};${req.query.end}.json?access_token=${process.env.MAPBOX_ACCESS_TOKEN}&geometries=geojson`)
+    .then(result => {
+      console.log('Directions result', result.data.routes[0]);
+      res.send(result.data.routes[0]);
+    })
+    .catch(err => res.status(404).send('Bad Request'));
+});
 
 module.exports = router;
