@@ -43,7 +43,8 @@ const crimeSpot =  (input) => {
   })
 };
 
-router.get('/search', (req, res) => {
+// Address to coordinates
+router.get('/geocode/forward', (req, res) => {
   const address = req.query.address;
   console.log('line 46 map.js server search evoked req.session', req.session)
   mapboxClient.geocodeForward(address, (err) => {
