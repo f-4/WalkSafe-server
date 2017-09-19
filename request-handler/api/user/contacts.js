@@ -1,9 +1,15 @@
 import express from 'express';
 import db from './../../../db/config.js';
+import bodyParser from 'body-parser';
+
 const router = express.Router();
+router.use(bodyParser.urlencoded( {extended: true }));
+router.use(bodyParser.json());
 
 router.get('/contacts', (req, res) => {
-  const user_id = '107291565452880607951';
+  //hard code for now wait for passport session to be resolved
+  const user_id = '107291565452880607951'
+  // const user_id = req.params.user_id;
   db.user
     .findAll({
       where: {
@@ -21,9 +27,9 @@ router.get('/contacts', (req, res) => {
 });
 
 router.post('/contacts', (req, res) => {
-  const user_id = '107291565452880607951';
-  const contactName = 'CCCD';
-  const contactNumber = '123';
+  const user_id = req.body.user_id;
+  const contactName = req.body.contactName;
+  const contactNumber = req.body.contacNumber;
   db.user
     .findAll({
       attributes: ['id'],
