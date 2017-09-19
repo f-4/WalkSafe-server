@@ -43,7 +43,6 @@ const crimeSpot =  (input) => {
   })
 };
 
-
 router.get('/search', (req, res) => {
   const address = req.query.address;
   console.log('line 46 map.js server search evoked req.session', req.session)
@@ -51,9 +50,26 @@ router.get('/search', (req, res) => {
     if (err) { console.log(err) }
   })
     .then(result => {
-      console.log('Return search result', result.entity.features[0]);
+      console.log('Search result', result.entity.features[0]);
       res.send(result.entity.features[0]);
     })
+    .catch(err => res.status(404).send('Bad Request'));
+});
+
+// Coordinates to address
+router.get('/geocode/reverse', (req, res) => {
+  const location = {
+    latitude: parseFloat(req.query.latitude),
+    longitude: parseFloat(req.query.longitude)
+  };
+  mapboxClient.geocodeReverse(location, (err) => {
+    if (err) { console.log(err) }
+  })
+    .then(result => {
+      console.log('Reverse geocode result', result.entity.features[0]);
+      res.send(result.entity.features[0]);
+    })
+    .catch(err => res.status(404).send('Bad Request'));
 });
 
 router.get('/crimes', (req, res) => {
