@@ -43,17 +43,34 @@ const crimeSpot =  (input) => {
   })
 };
 
-
-router.get('/search', (req, res) => {
+// Address to coordinates
+router.get('/geocode/forward', (req, res) => {
   const address = req.query.address;
   console.log('line 46 map.js server search evoked req.session', req.session)
   mapboxClient.geocodeForward(address, (err) => {
     if (err) { console.log(err) }
   })
-    .then( result => {
-      console.log('Return search result', result.entity.features[0]);
+    .then(result => {
+      console.log('Search result', result.entity.features[0]);
       res.send(result.entity.features[0]);
     })
+    .catch(err => res.status(404).send('Bad Request'));
+});
+
+// Coordinates to address
+router.get('/geocode/reverse', (req, res) => {
+  const location = {
+    latitude: parseFloat(req.query.latitude),
+    longitude: parseFloat(req.query.longitude)
+  };
+  mapboxClient.geocodeReverse(location, (err) => {
+    if (err) { console.log(err) }
+  })
+    .then(result => {
+      console.log('Reverse geocode result', result.entity.features[0]);
+      res.send(result.entity.features[0]);
+    })
+    .catch(err => res.status(404).send('Bad Request'));
 });
 
 router.get('/crimes', (req, res) => {
@@ -63,7 +80,16 @@ router.get('/crimes', (req, res) => {
       console.log(crimes)
       res.send(crimes);
     })
-    .catch(err => res.status(404).send('Bad Request'))
-})
+    .catch(err => res.status(404).send('Bad Request'));
+});
+
+router.get('/directions', (req, res) => {
+  axios.get(`https://api.mapbox.com/directions/v5/mapbox/walking/${req.query.start};${req.query.end}.json?access_token=${process.env.MAPBOX_ACCESS_TOKEN}&geometries=geojson`)
+    .then(result => {
+      console.log('Directions result', result.data.routes[0]);
+      res.send(result.data.routes[0]);
+    })
+    .catch(err => res.status(404).send('Bad Request'));
+});
 
 module.exports = router;
