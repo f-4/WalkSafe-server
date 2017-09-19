@@ -2,8 +2,7 @@ import express from 'express';
 import mapbox from 'mapbox';
 import axios from 'axios';
 import util from './../../util/utility';
-
-// import passport from 'passport';
+// import {router, express} from './../api.js';
 
 const router = express.Router();
 const mapboxClient = new mapbox(process.env.MAPBOX_ACCESS_TOKEN);
@@ -43,10 +42,11 @@ const crimeSpot =  (input) => {
   })
 };
 
+
 // Address to coordinates
 router.get('/geocode/forward', (req, res) => {
   const address = req.query.address;
-  console.log('line 46 map.js server search evoked req.session', req.session)
+  console.log('line 46 map.js server search evoked req.session env', req.session)
   mapboxClient.geocodeForward(address, (err) => {
     if (err) { console.log(err) }
   })

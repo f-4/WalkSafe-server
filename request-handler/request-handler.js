@@ -1,17 +1,19 @@
 import { google, facebook } from './../config';
 
-import express from'express';
+// import express from'express';
 import db from'../db/config';
 
-import routers from'./api/api.js';
+import { express, router } from'./api/api.js';
 import session from'express-session';
 
 import passport from'passport';
 import GoogleStrategy from'passport-google-oauth20';
 import FacebookStrategy from'passport-facebook';
 
+import bodyParser from 'body-parser';
 import Users from'./../db/collections/users.js';
 import util from './util/utility';
+
 const app = express();
 
 
@@ -21,10 +23,6 @@ app.use(session({
   saveUninitialized: true,
 }));
 
-
-// Initialize Passport
-app.use(passport.initialize());
-app.use(passport.session());
 
 
 const transformFacebookProfile = profile => ({
@@ -71,7 +69,14 @@ passport.serializeUser((user, done) => done(null, user));
 passport.deserializeUser((user, done) => done(null, user));
 
 
-app.use('/api', routers);
+
+// Initialize Passport
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+
+app.use('/api', router);
 // THIS IS A BAD WAY TO SAVE SESSIONS
 // USE A DIFFERENT METHOD FOR PRODUCTION
 

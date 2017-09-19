@@ -3,38 +3,58 @@ import db from './../../../db/config.js';
 const router = express.Router();
 
 router.get('/contacts', (req, res) => {
-  const userId = '107291565452880607951'
-  // ADD DB QUERY HERE
-  db.users
+  const user_id = '107291565452880607951';
+  db.user
     .findAll({
       where: {
-        contacts: req.params.input
-      }
+        google_id:user_id
+      },
+      include:[{
+        model: db.contact
+      }]
     })
     .then(result => {
-      console.log(result);
-      res.send(result);
+      console.log(result.contacts);
+      res.send(result[0].contacts);
     })
     .catch(console.error);
 });
 
 router.post('/contacts', (req, res) => {
-  console.log('api/user/contacts post request', req.session);
-  // ADD DB QUERY HERE
-  const contactName= 'aa';
-  const contactNumber= '123'
-  db.users.create({
-      name: contactName,
-      number:contactNumber
+  const user_id = '107291565452880607951';
+  const contactName = 'CCCD';
+  const contactNumber = '123';
+  db.user
+    .findAll({
+      attributes: ['id'],
+      where: {
+        google_id: user_id
+      }
     })
-    .then((result) => {
-      console.log('Server POST User success', result);
-      res.send(result);
+    .then(id => {
+      db.contact
+      .findAll({where: {contact_name: contactName, userId: id[0].id}})
+      .then(result => {
+        if (result.length === 0){
+          db.contact.create({
+              contact_name: contactName,
+              phone_number: contactNumber,
+              userId: id[0].id,
+            })
+            .then((result) => {
+              console.log('Server POST contacts success', result);
+              res.send(result);
+            })
+            .catch((error) => {
+              console.log('Server POST contacts error: ', error);
+              res.end('contacts POST error');
+            })
+        } else {
+          res.send('contacts already exists');
+        }
+      })
     })
-    .catch((error) => {
-      console.log('Server POST User error: ', error);
-      res.end('User POST error');
-    })
+    .catch(console.error)
 });
 
 module.exports = router;

@@ -4,12 +4,12 @@ const path = require('path');
 
 // INSERT USER AND CRIME CATEGORY
 const dbcreatUser = () => db.user.create({
-      username: 'Fantastic4',
+      username: 'sonrisa chen',
       email: 'fantastic4@gmail.com',
       avatar: 'https://avatars2.githubusercontent.com/u/31486494?v=4&s=200',
       accessToken: 'abc123',
       google_token:'abc12345',
-      google_id:'123',
+      google_id:'107291565452880607951',
       contacts: [
         {
           contact_name: 'Human Torch',
@@ -126,20 +126,41 @@ const dbSpacialSF = () => db.sequelize.query(queryStringTransformGeomSF);
 //CLOSE CONNECTION
 const dbclose = () => db.sequelize.close();
 
+var p1 = Promise.resolve(3);
+var p2 = 1337;
+var p3 = new Promise((resolve, reject) => {
+  setTimeout(() => {console.log('line132'); resolve()}, 100, 'foo');
+});
+
+
+/*
+Promise.all([p1, p2, p3]).then(values => {
+  console.log(values); // [3, 1337, "foo"]
+});
+*/
+
+
 
 //DB SYNC START
 db.sequelize.sync({
   force: true,
 })
-  .then(dbcreatUser)
-  .then(dbcrimeType)
+  // .then(Promise.all([p1, p2, p3, dbcreatUser, dbcrimeType]))
+  .then(function() {
+    return Promise.all([p1, p2, p3, dbcreatUser(), dbcrimeType()])
+  })
+  .then(values => {
+    console.log(values)
+  })
+  // .then(dbcreatUser)
+  // .then(dbcrimeType)
   .then(dbinputSFdata)
-  .then(dbinputLAdata)
-  .then(dbcleanLAdata)
-  .then(dbtransformLAdata)
-  .then(dbfilterLAdata)
-  .then(dbtransformSFdata)
-  .then(dbfilterSFdata)
-  .then(dbSpacialLA)
-  .then(dbSpacialSF)
+  // .then(dbinputLAdata)
+  // .then(dbcleanLAdata)
+  // .then(dbtransformLAdata)
+  // .then(dbfilterLAdata)
+  // .then(dbtransformSFdata)
+  // .then(dbfilterSFdata)
+  // .then(dbSpacialLA)
+  // .then(dbSpacialSF)
   .then(dbclose);
