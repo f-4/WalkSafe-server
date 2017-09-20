@@ -1,6 +1,4 @@
 import { google, facebook } from './../config';
-
-// import express from'express';
 import db from'../db/config';
 
 import { express, router } from'./api/api.js';
@@ -15,7 +13,7 @@ import Users from'./../db/collections/users.js';
 import util from './util/utility';
 
 const app = express();
-
+console.log('save env')
 
 app.use(session({
   secret: 'In da hood',

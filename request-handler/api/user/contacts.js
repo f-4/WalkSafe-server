@@ -20,7 +20,7 @@ router.get('/contacts', (req, res) => {
       }]
     })
     .then(result => {
-      console.log(result.contacts);
+      console.log(console.log('get contacts result', result[0].contacts));
       res.send(result[0].contacts);
     })
     .catch(console.error);
@@ -61,6 +61,17 @@ router.post('/contacts', (req, res) => {
       })
     })
     .catch(console.error)
+});
+
+router.delete('/contacts', (req, res) => {
+  const contactName = 'abc';
+  const user_id = null;
+  db.contact
+    .destroy({where: {contact_name: contactName, userId: user_id}})
+    .then((total) => {
+      console.log('Deleted total number of contacts', total);
+      res.send(`${total} contact has been deleted`);
+  });
 });
 
 module.exports = router;
