@@ -1,3 +1,4 @@
+console.log('env')
 const Sequelize = require('sequelize');
 const readModels = require('./utils/read-models.js');
 
