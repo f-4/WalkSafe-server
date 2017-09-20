@@ -4,12 +4,16 @@ import db from'../db/config';
 import { express, router } from'./api/api.js';
 import session from'express-session';
 
-import passport from'passport';
-import GoogleStrategy from'passport-google-oauth20';
-import FacebookStrategy from'passport-facebook';
+import passport from 'passport';
+import GoogleStrategy from 'passport-google-oauth20';
+import FacebookStrategy from 'passport-facebook';
 
+<<<<<<< 34fff6c22578257a3db912e59c2182918020bcb6
 import bodyParser from 'body-parser';
 import Users from'./../db/collections/users.js';
+=======
+import Users from './../db/collections/users.js';
+>>>>>>> Practice
 import util from './util/utility';
 
 const app = express();
@@ -17,8 +21,8 @@ console.log('save env')
 
 app.use(session({
   secret: 'In da hood',
-  resave: true,
-  saveUninitialized: true,
+  resave: false,
+  saveUninitialized: true
 }));
 
 
@@ -67,6 +71,7 @@ passport.serializeUser((user, done) => done(null, user));
 passport.deserializeUser((user, done) => done(null, user));
 
 
+<<<<<<< 34fff6c22578257a3db912e59c2182918020bcb6
 
 // Initialize Passport
 app.use(passport.initialize());
@@ -78,5 +83,9 @@ app.use('/api', router);
 // THIS IS A BAD WAY TO SAVE SESSIONS
 // USE A DIFFERENT METHOD FOR PRODUCTION
 
+=======
+app.use('/api', routers);
+>>>>>>> Practice
 
+console.log('what is the passport in request-handler:', passport);
 module.exports = app;

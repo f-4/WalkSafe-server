@@ -14,34 +14,33 @@ const crimeSpot =  (input) => {
           lat: input.lat,
           lon: input.lon,
           key: process.env.SPOTCRIME_API_KEY,
-          radius: 0.01,
-        },
-      },
-    )
-      .then((result) => {
+          radius: 0.01
+        }})
+      .then(result => {
         // Map crimes into annotation objects
-        console.log('what is the crime result', result);
-        const crimes = result.data.crimes.map(crime => ({
-          coordinates: [crime.lat, crime.lon],
-          type: 'point',
-          title: crime.type,
-          subtitle: `${crime.address} ${crime.date}`,
-          annotationImage: {
-            source: { uri: crime.type.toLowerCase() },
-            height: 45,
-            width: 45,
-          },
-          id: crime.cdid.toString(),
-        }));
+        const crimes = result.data.crimes.map(crime => {
+          return {
+            coordinates: [crime.lat, crime.lon],
+            type: 'point',
+            title: crime.type,
+            subtitle: `${crime.address} ${crime.date}`,
+            annotationImage: {
+              source: { uri: crime.type.toLowerCase() },
+              height: 45,
+              width: 45
+            },
+            id: crime.cdid.toString()
+          }
+        });
         // Return array of mapped crimes
         console.log('crimes', crimes);
         resolve(crimes);
       })
-      .catch((err) => {
-        console.log('line 52 error:', err);
+      .catch(err => {
+        console.log('line 52 ', err);
         resolve(err);
       });
-  });
+  })
 };
 
 
@@ -50,9 +49,8 @@ router.get('/geocode/forward', (req, res) => {
   const address = req.query.address;
   console.log('line 46 map.js server search evoked req.session env', req.session)
   mapboxClient.geocodeForward(address, (err) => {
-    if (err) { console.log(err); }
+    if (err) { console.log(err) }
   })
-<<<<<<< 87773fd771a3d9bb206e100c05ca799489dec17f
     .then(result => {
       console.log('Search result', result.entity.features[0]);
       res.send(result.entity.features[0]);
@@ -74,21 +72,22 @@ router.get('/geocode/reverse', (req, res) => {
       res.send(result.entity.features[0]);
     })
     .catch(err => res.status(404).send('Bad Request'));
-=======
-    .then((result) => {
+    .then( result => {
       console.log('Return search result', result.entity.features[0]);
       res.send(result.entity.features[0]);
-    });
->>>>>>> ESlint files
+    })
+>>>>>>> Practice
 });
 
 router.get('/crimes', (req, res) => {
-  console.log('hey');
+  console.log('crimes req', req.session);
+  console.log('is this authenticated', req.isAuthenticated());
   crimeSpot(req.query)
-    .then((crimes) => {
-      console.log(crimes);
+    .then(crimes => {
+      console.log(crimes)
       res.send(crimes);
     })
+<<<<<<< 34fff6c22578257a3db912e59c2182918020bcb6
     .catch(err => res.status(404).send('Bad Request'));
 });
 <<<<<<< 87773fd771a3d9bb206e100c05ca799489dec17f
@@ -103,5 +102,9 @@ router.get('/directions', (req, res) => {
 });
 =======
 >>>>>>> ESlint files
+=======
+    .catch(err => res.status(404).send('Bad Request'))
+})
+>>>>>>> Practice
 
 module.exports = router;

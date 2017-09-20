@@ -1,6 +1,6 @@
 const passport = require('passport');
 
-var isLoggedIn = function(req, res, next) {
+const isLoggedIn = function (req, res, next) {
   console.log('map.js req.session', req.session)
   console.log('map.js req isAuthenticated', req.isAuthenticated())
   if (req.isAuthenticated()) {
@@ -24,4 +24,3 @@ exports.createSession = function(req, res, newUser) {
       res.redirect('/');
     });
 };
-

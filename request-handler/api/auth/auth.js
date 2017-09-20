@@ -1,4 +1,3 @@
-
 import express from 'express';
 import bodyParser from 'body-parser';
 
@@ -30,7 +29,29 @@ router.get('/google/callback',
     return res.redirect('walksafe://login?user=' + JSON.stringify(req.user));
   });
 
+// OLD WAY
+// router.get('/google/callback',
+//   passport.authenticate('google', { failureRedirect: '/google' }),
+//   (req, res) => {
+//     console.log('req.isAuthenticae auth.js', req.isAuthenticated());
+//     console.log('req.session', req.session);
+//     console.log('what is the req objecct after auth:', req.login);
+//     return res.redirect('walksafe://login?user=' + JSON.stringify(req.user));
+//   });
 
+// NEW HOTNESS
+router.get('/google/callback',
+  passport.authenticate('google', { failureRedirect: '/google' }),
+  (req, res, next) => {
+    console.log('Callback user', req.user);
+    req.logIn(req.user, (err) => {
+      if (err) {
+        return next(err);
+      }
+      console.log('Callback login req session', req.session);
+      return res.redirect(`walksafe://login?user=${JSON.stringify(req.user)}`)
+    });
+});
 
 router.get('/logout', (req, res, next) => {
   console.log('hey')
@@ -44,6 +65,6 @@ router.get('/logout', (req, res, next) => {
 
 
 
+console.log('what is the passport in auth file:', passport);
 
-// UNCOMMENT ENDS HERE
 module.exports = router;
