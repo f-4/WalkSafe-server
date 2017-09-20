@@ -80,7 +80,7 @@ router.get('/geocode/reverse', (req, res) => {
 });
 
 router.get('/crimes', (req, res) => {
-  console.log('crimes req', req.session);
+  console.log('crimes router', req.body);
   console.log('is this authenticated', req.isAuthenticated());
   crimeSpot(req.query)
     .then(crimes => {

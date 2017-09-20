@@ -1,4 +1,5 @@
 // Is this being used?
+console.log('Is api/index.js being used');
 
 import express from 'express';
 import mapbox from 'mapbox';

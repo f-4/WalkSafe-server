@@ -12,7 +12,7 @@ exports.getExistUser = (userid) => {
     return user[0].dataValues;
   })
   .catch((error) => {
-    console.log('User does not exist');
+    console.log('User does not exist', error);
     return null;
   });
 }
@@ -34,7 +34,7 @@ exports.createNewUser = ({ name, avatar, email, google_id }) => {
     return user.dataValues;
   })
   .catch((error) => {
-    console.log('User signUp failed');
+    console.log('User signUp failed', error);
     return null;
   });
 }

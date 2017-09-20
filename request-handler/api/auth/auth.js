@@ -1,14 +1,12 @@
 import express from 'express';
-import bodyParser from 'body-parser';
-
 import session from 'express-session';
 import passport from 'passport';
 
 
 const router = express.Router();
 
-router.use(bodyParser.urlencoded({ extended: true }));
-router.use(bodyParser.json());
+// router.use(bodyParser.urlencoded({ extended: true }));
+// router.use(bodyParser.json());
 
 router.use((req, res, next) => {console.log('auth.js, line14', req.session); next()});
 // UNCOMMENT THIS AUTH ROUTE FOR TESTING
@@ -44,12 +42,14 @@ router.get('/google/callback',
   passport.authenticate('google', { failureRedirect: '/google' }),
   (req, res, next) => {
     console.log('Callback user', req.user);
+    console.log('Auth body', req.body);
     req.logIn(req.user, (err) => {
       if (err) {
         return next(err);
       }
       console.log('Callback login req session', req.session);
       return res.redirect(`walksafe://login?user=${JSON.stringify(req.user)}`)
+      console.log('Anything happen after the redirect');
     });
 });
 
