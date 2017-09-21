@@ -1,3 +1,4 @@
+console.log('hey');
 import express from 'express';
 import db from './../../../db/config.js';
 import bodyParser from 'body-parser';
@@ -80,15 +81,26 @@ router.post('/contacts', (req, res) => {
 });
 
 router.delete('/contacts', (req, res) => {
-  console.log('delete contacts req query', req.query);
   const contactName = req.query.contact_name;
   const userId = parseInt(req.query.user_id);
-  db.contact
-    .destroy({where: {contact_name: contactName, userId: userId}})
-    .then((total) => {
-      console.log('Deleted total number of contacts', total);
-      res.send(`${total} contact has been deleted`);
-  });
+  db.user
+  .findAll({
+    attributes: ['id'],
+    where: {
+      google_id: user_id
+    }
+  })
+  .then(id => {
+    console.log('line78', id[0].id)
+     db.contact
+      .destroy({where: {contact_name: contactName, userId: id[0].id}})
+      .then((total) => {
+        console.log('Deleted total number of contacts', total);
+        res.send(`${total} contact has been deleted`);
+      });
+    })
+  .catch(console.error)
+
 });
 
 module.exports = router;

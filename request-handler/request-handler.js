@@ -14,7 +14,6 @@ import FacebookStrategy from 'passport-facebook';
 import bodyParser from 'body-parser';
 import Users from'./../db/collections/users.js';
 import util from './util/utility';
-
 const app = express();
 
 // // PASSPORT SESSIONS
