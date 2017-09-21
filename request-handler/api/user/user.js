@@ -1,5 +1,6 @@
 import express from 'express';
 import db from './../../../db/config.js';
+
 const router = express.Router();
 
 router.get('/user', (req, res) => {
@@ -9,7 +10,7 @@ router.get('/user', (req, res) => {
     .findAll({ where: {
       google_id: userId }
     })
-    .then(result => {
+    .then((result) => {
       console.log('api user', result);
       res.send(result);
     })
