@@ -1,9 +1,7 @@
 import { google, facebook } from './../config';
 import db from'../db/config';
-
 import { express, router } from'./api/api.js';
-import session from'express-session';
-import bodyParser from 'body-parser';
+
 
 import session from'express-session';
 import expressJWT from 'express-jwt';
@@ -18,8 +16,8 @@ import Users from'./../db/collections/users.js';
 import util from './util/utility';
 
 const app = express();
-console.log('save env')
 
+// PASSPORT SESSIONS
 app.use(session({
   secret: 'in da hood',
   resave: false,
