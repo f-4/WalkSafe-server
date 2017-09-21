@@ -2,7 +2,6 @@ import express from 'express';
 import session from 'express-session';
 import passport from 'passport';
 import jwt from 'jsonwebtoken';
-console.log('hey')
 const router = express.Router();
 
 router.use((req, res, next) => {console.log('auth.js, line14', req.session); next()});
