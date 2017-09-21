@@ -24,4 +24,45 @@ router.get('/markers', (req, res) => {
     .catch(console.error);
 });
 
+router.post('/markers', (req, res) => {
+  const userId = req.body.userId;
+  const title = req.body.title;
+  const subtitle = req.body.subtitle;
+  const latitude = req.body.latitude;
+  const longitude = req.body.longitude;
+  db.user
+    .findAll({
+      attributes: ['id'],
+      where: {
+        google_id: userId
+      }
+    })
+    .then(id => {
+      db.marker
+      .findAll({where: {subtitle: subtitle, userId: id[0].id}})
+      .then(result => {
+        if (result.length === 0){
+          db.marker.create({
+              userId: id[0].id,
+              title: title,
+              subtitle: subtitle,
+              latitude: latitude,
+              longitude: longitude
+            })
+            .then((result) => {
+              console.log('Server POST marker success', result);
+              res.send(result);
+            })
+            .catch((error) => {
+              console.log('Server POST marker error: ', error);
+              res.end('marker POST error');
+            });
+        } else {
+          res.send('marker already exists');
+        }
+      })
+    })
+    .catch(console.error);
+});
+
 module.exports = router;
