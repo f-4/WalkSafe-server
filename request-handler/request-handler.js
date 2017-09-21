@@ -17,19 +17,19 @@ import util from './util/utility';
 
 const app = express();
 
-// PASSPORT SESSIONS
-app.use(session({
-  secret: 'in da hood',
-  resave: false,
-  saveUninitialized: true
-}));
-
-// // JWT SESSIONS
-// app.use(expressJWT({
-//   secret: 'in da hood'
-// }).unless({
-//   path: ['/api/auth/google', '/api/auth/google/callback', '/api/auth/facebook', '/api/auth/facebook/callback']
+// // PASSPORT SESSIONS
+// app.use(session({
+//   secret: 'in da hood',
+//   resave: false,
+//   saveUninitialized: true
 // }));
+
+// JWT SESSIONS
+app.use(expressJWT({
+  secret: 'in da hood'
+}).unless({
+  path: ['/api/auth/google', '/api/auth/google/callback', '/api/auth/facebook', '/api/auth/facebook/callback']
+}));
 
 
 const transformFacebookProfile = profile => ({
