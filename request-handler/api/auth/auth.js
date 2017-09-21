@@ -1,7 +1,7 @@
 import express from 'express';
 import session from 'express-session';
 import passport from 'passport';
-
+import jwt from 'jsonwebtoken';
 
 const router = express.Router();
 
@@ -41,15 +41,18 @@ router.get('/google/callback',
 router.get('/google/callback',
   passport.authenticate('google', { failureRedirect: '/google' }),
   (req, res, next) => {
-    console.log('Callback user', req.user);
-    console.log('Auth body', req.body);
+    console.log('Google auth user', req.user);
     req.logIn(req.user, (err) => {
       if (err) {
         return next(err);
       }
-      console.log('Callback login req session', req.session);
-      return res.redirect(`walksafe://login?user=${JSON.stringify(req.user)}`)
-      console.log('Anything happen after the redirect');
+      console.log('Google auth callback req session', req.session);
+
+      //Add a token
+      let userToken = jwt.sign({
+        user: req.user
+      }, 'in da hood');
+      return res.redirect(`walksafe://login?user=${JSON.stringify(userToken)}`)
     });
 });
 

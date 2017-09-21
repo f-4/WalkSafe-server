@@ -5,6 +5,10 @@ import { express, router } from'./api/api.js';
 import session from'express-session';
 import bodyParser from 'body-parser';
 
+import session from'express-session';
+import expressJWT from 'express-jwt';
+import jwt from 'jsonwebtoken';
+
 import passport from 'passport';
 import GoogleStrategy from 'passport-google-oauth20';
 import FacebookStrategy from 'passport-facebook';
@@ -17,9 +21,16 @@ const app = express();
 console.log('save env')
 
 app.use(session({
-  secret: 'In da hood',
+  secret: 'in da hood',
   resave: false,
   saveUninitialized: true
+}));
+
+// JWT SESSIONS
+app.use(expressJWT({
+  secret: 'in da hood'
+}).unless({
+  path: ['/api/auth/google', '/api/auth/google/callback', '/api/auth/facebook', '/api/auth/facebook/callback']
 }));
 
 
@@ -79,5 +90,4 @@ app.use('/api', router);
 // USE A DIFFERENT METHOD FOR PRODUCTION
 
 
-console.log('what is the passport in request-handler:', passport);
 module.exports = app;
