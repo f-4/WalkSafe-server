@@ -127,41 +127,26 @@ const dbSpacialSF = () => db.sequelize.query(queryStringTransformGeomSF);
 // CLOSE CONNECTION
 const dbclose = () => db.sequelize.close();
 
-var p1 = Promise.resolve(3);
-var p2 = 1337;
-var p3 = new Promise((resolve, reject) => {
-  setTimeout(() => {console.log('line132'); resolve()}, 100, 'foo');
-});
-
-
-/*
-Promise.all([p1, p2, p3]).then(values => {
-  console.log(values); // [3, 1337, "foo"]
-});
-*/
-
 
 
 // DB SYNC START
 db.sequelize.sync({
   force: true,
 })
-  // .then(Promise.all([p1, p2, p3, dbcreatUser, dbcrimeType]))
-  .then(function() {
-    return Promise.all([p1, p2, p3, dbcreatUser(), dbcrimeType()])
+  .then(() => {
+    return Promise.all([dbcreatUser(), dbcrimeType()])
   })
-  .then(values => {
-    console.log(values)
+  .then(() => {
+    return Promise.all([dbinputSFdata(), dbinputLAdata()])
   })
-  // .then(dbcreatUser)
-  // .then(dbcrimeType)
-  .then(dbinputSFdata)
-  // .then(dbinputLAdata)
-  // .then(dbcleanLAdata)
-  // .then(dbtransformLAdata)
-  // .then(dbfilterLAdata)
-  // .then(dbtransformSFdata)
-  // .then(dbfilterSFdata)
-  // .then(dbSpacialLA)
-  // .then(dbSpacialSF)
+  .then(dbcleanLAdata)
+  .then(() => {
+    return Promise.all([dbtransformLAdata(), dbtransformSFdata()])
+  })
+  .then(() => {
+    return Promise.all([dbfilterLAdata(), dbfilterSFdata()])
+  })
+  .then(() => {
+    return Promise.all([dbSpacialLA(), dbSpacialSF()])
+  })
   .then(dbclose);

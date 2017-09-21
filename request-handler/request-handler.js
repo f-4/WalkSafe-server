@@ -15,7 +15,6 @@ import bodyParser from 'body-parser';
 import Users from'./../db/collections/users.js';
 import util from './util/utility';
 const app = express();
-
 // // PASSPORT SESSIONS
 // app.use(session({
 //   secret: 'in da hood',
@@ -29,7 +28,6 @@ app.use(expressJWT({
 }).unless({
   path: ['/api/auth/google', '/api/auth/google/callback', '/api/auth/facebook', '/api/auth/facebook/callback']
 }));
-
 
 const transformFacebookProfile = profile => ({
   name: profile.name,
@@ -70,7 +68,6 @@ passport.use(new GoogleStrategy(google,
 
 // serializeUser into sessions
 passport.serializeUser((user, done) => done(null, user));
-
 // deserialize user from sessions
 passport.deserializeUser((user, done) => done(null, user));
 
