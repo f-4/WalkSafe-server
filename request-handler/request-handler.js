@@ -1,26 +1,35 @@
 import { google, facebook } from './../config';
 import db from'../db/config';
-
 import { express, router } from'./api/api.js';
-import session from'express-session';
 
-import passport from'passport';
-import GoogleStrategy from'passport-google-oauth20';
-import FacebookStrategy from'passport-facebook';
+
+import session from'express-session';
+import expressJWT from 'express-jwt';
+import jwt from 'jsonwebtoken';
+
+import passport from 'passport';
+import GoogleStrategy from 'passport-google-oauth20';
+import FacebookStrategy from 'passport-facebook';
 
 import bodyParser from 'body-parser';
 import Users from'./../db/collections/users.js';
 import util from './util/utility';
 
 const app = express();
-console.log('save env')
 
+// PASSPORT SESSIONS
 app.use(session({
-  secret: 'In da hood',
-  resave: true,
-  saveUninitialized: true,
+  secret: 'in da hood',
+  resave: false,
+  saveUninitialized: true
 }));
 
+// // JWT SESSIONS
+// app.use(expressJWT({
+//   secret: 'in da hood'
+// }).unless({
+//   path: ['/api/auth/google', '/api/auth/google/callback', '/api/auth/facebook', '/api/auth/facebook/callback']
+// }));
 
 
 const transformFacebookProfile = profile => ({

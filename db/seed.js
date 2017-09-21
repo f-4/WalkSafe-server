@@ -32,41 +32,42 @@ const dbcreatUser = () => db.user.create({
     }, {
       include: [db.contact],
     });
+
 const dbcrimeType = () => db.crime_type.bulkCreate([
-    { type: 'CRIMINAL HOMICIDE' },
-    { type: 'FORCIBLE RAPE' },
-    { type: 'ROBBERY' },
-    { type: 'ASSAULT' },
-    { type: 'BURGLARY' },
-    { type: 'LARCENY/THEFT' },
-    { type: 'GRAND THEFT AUTO' },
-    { type: 'ARSON' },
-    { type: 'FORGERY' },
-    { type: 'FRAUD AND NSF CHECKS' },
-    { type: 'SEX OFFENSES FELONIES' },
-    { type: 'SEX OFFENSES MISDEMEANORS' },
-    { type: 'NON-AGGRAVATED ASSAULTS' },
-    { type: 'WEAPON LAWS' },
-    { type: 'OFFENSES AGAINST FAMILY' },
-    { type: 'NARCOTICS' },
-    { type: 'LIQUOR LAWS' },
-    { type: 'DRUG/NARCOTIC' },
-    { type: 'DISORDERLY CONDUCT' },
-    { type: 'VAGRANCY' },
-    { type: 'GAMBLING' },
-    { type: 'DRUNK DRIVING VEHICLE / BOAT' },
-    { type: 'VEHICLE THEFT' },
-    { type: 'VANDALISM' },
-    { type: 'WARRANTS' },
-    { type: 'RECEIVING STOLEN PROPERTY' },
-    { type: 'FEDERAL OFFENSES W/O MONEY' },
-    { type: 'FEDERAL OFFENSES WITH MONEY' },
-    { type: 'FELONIES MISCELLANEOUS' },
-    { type: 'MISDEMEANORS MISCELLANEOUS' },
-  ]);
+  { type: 'CRIMINAL HOMICIDE' },
+  { type: 'FORCIBLE RAPE' },
+  { type: 'ROBBERY' },
+  { type: 'ASSAULT' },
+  { type: 'BURGLARY' },
+  { type: 'LARCENY/THEFT' },
+  { type: 'GRAND THEFT AUTO' },
+  { type: 'ARSON' },
+  { type: 'FORGERY' },
+  { type: 'FRAUD AND NSF CHECKS' },
+  { type: 'SEX OFFENSES FELONIES' },
+  { type: 'SEX OFFENSES MISDEMEANORS' },
+  { type: 'NON-AGGRAVATED ASSAULTS' },
+  { type: 'WEAPON LAWS' },
+  { type: 'OFFENSES AGAINST FAMILY' },
+  { type: 'NARCOTICS' },
+  { type: 'LIQUOR LAWS' },
+  { type: 'DRUG/NARCOTIC' },
+  { type: 'DISORDERLY CONDUCT' },
+  { type: 'VAGRANCY' },
+  { type: 'GAMBLING' },
+  { type: 'DRUNK DRIVING VEHICLE / BOAT' },
+  { type: 'VEHICLE THEFT' },
+  { type: 'VANDALISM' },
+  { type: 'WARRANTS' },
+  { type: 'RECEIVING STOLEN PROPERTY' },
+  { type: 'FEDERAL OFFENSES W/O MONEY' },
+  { type: 'FEDERAL OFFENSES WITH MONEY' },
+  { type: 'FELONIES MISCELLANEOUS' },
+  { type: 'MISDEMEANORS MISCELLANEOUS' },
+]);
 
 // IMPORT DATA INTO STAGING TABLE
-  //LA
+  // LA
 const filePathLACounty = path.join(__dirname, '/csv/staging-la-county.csv');
 const queryStringLACounty = `\COPY staging_la_counties (crime_date, crime_year, crime_category_number,
   crime_category_description, street, city, state, zip,
@@ -74,7 +75,7 @@ const queryStringLACounty = `\COPY staging_la_counties (crime_date, crime_year, 
   FROM '${filePathLACounty}' DELIMITER ',' CSV HEADER;`;
 const dbinputLAdata = () => db.sequelize.query(queryStringLACounty);
 
-  //SF
+// SF
 const filePathSF = path.join(__dirname, '/csv/staging-sf.csv');
 const queryStringSF = `\COPY staging_sfs (incident_num, category, date, time, address, x, y, location)
   FROM '${filePathSF}' DELIMITER ',' CSV HEADER;`;
@@ -82,21 +83,21 @@ const dbinputSFdata = () => db.sequelize.query(queryStringSF);
 
 // CLEAN STAGING TABLE
 
-  //LA
-const queryStringCleanUpLACounty = `DELETE FROM staging_la_counties WHERE longitude IS null;`;
+// LA
+const queryStringCleanUpLACounty = 'DELETE FROM staging_la_counties WHERE longitude IS null;';
 const dbcleanLAdata = () => db.sequelize.query(queryStringCleanUpLACounty);
 
 
 // IMPORT DATA INTO PRODUCTION LA TABLE
 
-  //LA
+// LA
 const queryStringFinalizeLACounty = `INSERT INTO crime_la_counties (crime_type, crime_time, longitude, latitude, crime_identifier, address)
   SELECT crime_category_number, crime_date, longitude, latitude, crime_identifier, location
   from staging_la_counties;`;
 const dbtransformLAdata = () => db.sequelize.query(queryStringFinalizeLACounty);
 
- //SF
-const queryStringFinalizeSF =`INSERT INTO crime_sfs (crime_type, crime_time, longitude, latitude, crime_identifier, address)
+// SF
+const queryStringFinalizeSF = `INSERT INTO crime_sfs (crime_type, crime_time, longitude, latitude, crime_identifier, address)
   SELECT ct.id as crime_type, sf.date, sf.x, sf.y, sf.incident_num, sf.address
   FROM staging_sfs sf, crime_types ct
   WHERE sf.category = ct.type;`;
@@ -104,26 +105,26 @@ const dbtransformSFdata = () => db.sequelize.query(queryStringFinalizeSF);
 
 // CLEAN PRODUCTION LA TABLE
 
-  //LA
-const queryStringFilterLaCounty = `DELETE FROM crime_la_counties WHERE latitude < -90 ::DECIMAL;`;
+// LA
+const queryStringFilterLaCounty = 'DELETE FROM crime_la_counties WHERE latitude < -90 ::DECIMAL;';
 const dbfilterLAdata = () => db.sequelize.query(queryStringFilterLaCounty);
 
-  //SF
-const queryStringFilterSF = `DELETE FROM crime_sfs WHERE crime_type IS null;`;
+// SF
+const queryStringFilterSF = 'DELETE FROM crime_sfs WHERE crime_type IS null;';
 const dbfilterSFdata = () => db.sequelize.query(queryStringFilterSF);
 
 // SPATIALIZE LA TABLE
 
-  //LA
-const queryStringTransformGeomLACounty =`UPDATE crime_la_counties SET geometry = ST_Transform(ST_SetSRID(ST_MakePoint(longitude, latitude), 4326), 2227);`;
+// LA
+const queryStringTransformGeomLACounty = 'UPDATE crime_la_counties SET geometry = ST_Transform(ST_SetSRID(ST_MakePoint(longitude, latitude), 4326), 2227);';
 const dbSpacialLA = () => db.sequelize.query(queryStringTransformGeomLACounty);
 
-  //SF
-const queryStringTransformGeomSF =`UPDATE crime_sfs SET geometry = ST_Transform(ST_SetSRID(ST_MakePoint(longitude, latitude), 4326), 2227);`;
+// SF
+const queryStringTransformGeomSF = 'UPDATE crime_sfs SET geometry = ST_Transform(ST_SetSRID(ST_MakePoint(longitude, latitude), 4326), 2227);';
 const dbSpacialSF = () => db.sequelize.query(queryStringTransformGeomSF);
 /* ALTER TABLE QUERY END */
 
-//CLOSE CONNECTION
+// CLOSE CONNECTION
 const dbclose = () => db.sequelize.close();
 
 var p1 = Promise.resolve(3);
@@ -141,7 +142,7 @@ Promise.all([p1, p2, p3]).then(values => {
 
 
 
-//DB SYNC START
+// DB SYNC START
 db.sequelize.sync({
   force: true,
 })
