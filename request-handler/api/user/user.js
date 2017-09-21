@@ -4,8 +4,8 @@ import db from './../../../db/config.js';
 const router = express.Router();
 
 router.get('/user', (req, res) => {
-  console.log('api/user/user get request', req.session);
-  const userId = '107291565452880607951';
+  console.log('user req id', req.query.userId);
+  const userId = req.query.userId;
   db.user
     .findAll({ where: {
       google_id: userId }
@@ -14,7 +14,9 @@ router.get('/user', (req, res) => {
       console.log('api user', result);
       res.send(result);
     })
-    .catch(console.error);
+    .catch((err) => {
+      console.error(err);
+    });
 });
 
 module.exports = router;
