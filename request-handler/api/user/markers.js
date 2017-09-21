@@ -6,6 +6,7 @@ const router = express.Router();
 router.use(bodyParser.urlencoded( {extended: true }));
 router.use(bodyParser.json());
 
+
 router.get('/markers', (req, res) => {
   const userId = req.query.userId;
   db.user
