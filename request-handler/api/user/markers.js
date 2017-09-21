@@ -65,4 +65,25 @@ router.post('/markers', (req, res) => {
     .catch(console.error);
 });
 
+router.delete('/markers', (req, res) => {
+  const userId = req.query.userId;
+  const subtitle = req.query.subtitle;
+  db.user
+  .findAll({
+    attributes: ['id'],
+    where: {
+      google_id: userId
+    }
+  })
+  .then(id => {
+     db.marker
+      .destroy({where: {subtitle: subtitle, userId: id[0].id}})
+      .then((count) => {
+        console.log(`Deleted ${count} marker(s)`);
+        res.send(`${count} marker(s) has been deleted`);
+      });
+    })
+  .catch(console.error);
+});
+
 module.exports = router;
