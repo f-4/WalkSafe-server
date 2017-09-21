@@ -9,11 +9,11 @@ router.use(bodyParser.json());
 router.get('/contacts', (req, res) => {
   //hard code for now wait for passport session to be resolved
   const user_id = '107291565452880607951'
-  // const user_id = req.params.user_id;
+  // const user_id = req.params.userId;
   db.user
     .findAll({
       where: {
-        google_id:user_id
+        google_id:userId
       },
       include:[{
         model: db.contact

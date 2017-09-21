@@ -5,17 +5,23 @@ import jwt from 'jsonwebtoken';
 
 const router = express.Router();
 
-// router.use(bodyParser.urlencoded({ extended: true }));
-// router.use(bodyParser.json());
-
 router.use((req, res, next) => {console.log('auth.js, line14', req.session); next()});
-// UNCOMMENT THIS AUTH ROUTE FOR TESTING
+
 router.get('/facebook', passport.authenticate('facebook'));
 
 router.get(
   '/facebook/callback',
   passport.authenticate('facebook', { failureRedirect: '/facebook' }),
-  (req, res) => res.redirect(`walksafe://login?user=${JSON.stringify(req.user)}`),
+  (req, res) => {
+
+    //Add a token
+    let userToken = jwt.sign({
+      user: req.user
+    }, 'in da hood');
+
+    //return token and user
+    return res.redirect(`walksafe://login?token=${JSON.stringify(userToken)}&user=${JSON.stringify(req.user)}`);
+  }
 );
 
 router.get('/google', passport.authenticate('google', { scope: ['email profile'] }));
@@ -49,7 +55,7 @@ router.get('/google/callback',
       }, 'in da hood');
       console.log('Google auth callback userToken', userToken);
       console.log('Google auth callback req user', req.user);
-      return res.redirect(`walksafe://login?token=${JSON.stringify(userToken)}&user=${JSON.stringify(req.user)}`)
+      return res.redirect(`walksafe://login?token=${JSON.stringify(userToken)}&user=${JSON.stringify(req.user)}`);
     });
 });
 
