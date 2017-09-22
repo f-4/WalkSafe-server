@@ -42,7 +42,10 @@ router.post('/contacts', (req, res) => {
   const userId = req.body.userId;
   const contactName = req.body.contactName;
   const contactNumber = req.body.contactNumber;
+<<<<<<< 39881ace9acc9a880a138d59cd04c9b9ed138c7e
 
+=======
+>>>>>>> Delete contacts
   console.log('POST contacts user id', userId);
   console.log('contactNumber', contactNumber, typeof contactNumber);
 
