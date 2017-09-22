@@ -78,10 +78,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-
 app.use('/api', router);
-// THIS IS A BAD WAY TO SAVE SESSIONS
-// USE A DIFFERENT METHOD FOR PRODUCTION
-
 
 module.exports = app;
