@@ -2,7 +2,6 @@ import { google, facebook } from './../config';
 import db from'../db/config';
 import { express, router } from'./api/api.js';
 
-
 import session from'express-session';
 import expressJWT from 'express-jwt';
 import jwt from 'jsonwebtoken';
