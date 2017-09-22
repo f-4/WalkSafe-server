@@ -19,7 +19,7 @@ router.get('/markers', (req, res) => {
       }]
     })
     .then(result => {
-      const markers;
+      let markers;
       if (result.length !== 0) {
         markers = result[0].markers;
       } else {
