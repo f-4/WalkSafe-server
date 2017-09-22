@@ -19,10 +19,18 @@ router.get('/markers', (req, res) => {
       }]
     })
     .then(result => {
-      console.log(console.log('get markers result', result[0].markers));
-      res.send(result[0].markers);
+      const markers;
+      if (result.length !== 0) {
+        markers = result[0].markers;
+      } else {
+        markers = result;
+      }
+      console.log('GET markers result', markers);
+      res.send(markers);
     })
-    .catch(console.error);
+    .catch(err => {
+      console.log(err);
+    });
 });
 
 router.post('/markers', (req, res) => {
@@ -63,7 +71,9 @@ router.post('/markers', (req, res) => {
         }
       })
     })
-    .catch(console.error);
+    .catch(err => {
+      console.log(err);
+    });
 });
 
 router.delete('/markers', (req, res) => {
@@ -84,7 +94,9 @@ router.delete('/markers', (req, res) => {
         res.send(`${count} marker(s) has been deleted`);
       });
     })
-  .catch(console.error);
+  .catch(err => {
+    console.log(err);
+  });
 });
 
 module.exports = router;
