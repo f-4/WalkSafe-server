@@ -1,4 +1,3 @@
-console.log('hey');
 import express from 'express';
 import db from './../../../db/config.js';
 import bodyParser from 'body-parser';
@@ -30,7 +29,6 @@ router.get('/contacts', (req, res) => {
       } else {
         contacts = result;
       }
-
       console.log('get contacts result', contacts);
       res.send(contacts);
     })
@@ -40,10 +38,13 @@ router.get('/contacts', (req, res) => {
 });
 
 router.post('/contacts', (req, res) => {
+
   const userId = req.body.userId;
   const contactName = req.body.contactName;
-  const contactNumber = req.body.contacNumber;
+  // const contactNumber = '1234567';
+  const contactNumber = req.body.contactNumber;
   console.log('POST contacts user id', userId);
+  console.log('contactNumber', contactNumber, typeof contactNumber);
 
   db.user
     .findAll({
@@ -82,12 +83,13 @@ router.post('/contacts', (req, res) => {
 
 router.delete('/contacts', (req, res) => {
   const contactName = req.query.contact_name;
-  const userId = parseInt(req.query.user_id);
+  const google_id = req.query.user_id;
+  console.log('delete contacts', google_id);
   db.user
   .findAll({
     attributes: ['id'],
     where: {
-      google_id: user_id
+      google_id: google_id
     }
   })
   .then(id => {
@@ -103,4 +105,4 @@ router.delete('/contacts', (req, res) => {
 
 });
 
-module.exports = router;
+export default router;

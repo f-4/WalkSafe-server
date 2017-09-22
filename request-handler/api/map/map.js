@@ -2,7 +2,6 @@ import express from 'express';
 import mapbox from 'mapbox';
 import axios from 'axios';
 import util from './../../util/utility';
-// import {router, express} from './../api.js';
 
 const router = express.Router();
 const mapboxClient = new mapbox(process.env.MAPBOX_ACCESS_TOKEN);
@@ -92,4 +91,4 @@ router.get('/directions', (req, res) => {
     .catch(err => res.status(404).send('Bad Request'));
 });
 
-module.exports = router;
+export default router;
