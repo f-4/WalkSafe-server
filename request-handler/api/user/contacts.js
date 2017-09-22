@@ -41,8 +41,8 @@ router.post('/contacts', (req, res) => {
 
   const userId = req.body.userId;
   const contactName = req.body.contactName;
-  // const contactNumber = '1234567';
   const contactNumber = req.body.contactNumber;
+
   console.log('POST contacts user id', userId);
   console.log('contactNumber', contactNumber, typeof contactNumber);
 
