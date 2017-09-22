@@ -11,21 +11,21 @@ router.get(
   '/facebook/callback',
   passport.authenticate('facebook', { failureRedirect: '/facebook' }),
   (req, res) => {
-
-    //Add a token
-    let userToken = jwt.sign({
-      user: req.user
+    // Add a token
+    const userToken = jwt.sign({
+      user: req.user,
     }, 'in da hood');
 
-    //return token and user
+    // return token and user
     return res.redirect(`walksafe://login?token=${JSON.stringify(userToken)}&user=${JSON.stringify(req.user)}`);
-  }
+  },
 );
 
 router.get('/google', passport.authenticate('google', { scope: ['email profile'] }));
 
 // NEW HOTNESS
-router.get('/google/callback',
+router.get(
+  '/google/callback',
   passport.authenticate('google', { failureRedirect: '/google' }),
   (req, res, next) => {
     console.log('Google auth user', req.user);
@@ -35,14 +35,15 @@ router.get('/google/callback',
       }
       console.log('Google auth callback req session', req.session);
 
-      //Add a token
-      let userToken = jwt.sign({
-        user: req.user
+      // Add a token
+      const userToken = jwt.sign({
+        user: req.user,
       }, 'in da hood');
       console.log('Google auth callback userToken', userToken);
       console.log('Google auth callback req user', req.user);
       return res.redirect(`walksafe://login?token=${JSON.stringify(userToken)}&user=${JSON.stringify(req.user)}`);
     });
-});
+  },
+);
 
 export default  router;
