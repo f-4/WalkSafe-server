@@ -11,6 +11,7 @@ module.exports = function UserSchema(sequelize, DataTypes) {
 
   User.associate = function UserAssociate(models) {
     User.hasMany(models.contact);
+    User.hasMany(models.marker);
   };
   return User;
 };

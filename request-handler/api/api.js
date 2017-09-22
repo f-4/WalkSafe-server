@@ -9,5 +9,6 @@ router.use('/auth', require('./auth/auth.js'));
 router.use('/map', require('./map/map.js'));
 router.use('/user', require('./user/user.js'));
 router.use('/user', require('./user/contacts.js'));
+router.use('/user', require('./user/markers.js'));
 
 export { express, router };

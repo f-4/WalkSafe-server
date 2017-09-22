@@ -24,7 +24,7 @@ const app = express();
 //   saveUninitialized: true
 // }));
 
-// JWT SESSIONS
+JWT SESSIONS
 app.use(expressJWT({
   secret: 'in da hood'
 }).unless({
