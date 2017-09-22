@@ -2,11 +2,9 @@ import express from 'express';
 import session from 'express-session';
 import passport from 'passport';
 import jwt from 'jsonwebtoken';
-
 const router = express.Router();
 
 router.use((req, res, next) => {console.log('auth.js, line14', req.session); next()});
-
 router.get('/facebook', passport.authenticate('facebook'));
 
 router.get(
@@ -25,18 +23,6 @@ router.get(
 );
 
 router.get('/google', passport.authenticate('google', { scope: ['email profile'] }));
-
-// // OLD WAY
-// router.get(
-//   '/google/callback',
-//   passport.authenticate('google', { failureRedirect: '/google' }),
-//   (req, res) => {
-//     console.log('req.isAuthenticae auth.js', req.isAuthenticated());
-//     console.log('req.session', req.session);
-//     console.log('what is the req objecct after auth:', req.login);
-//     return res.redirect(`walksafe://login?user=${JSON.stringify(req.user)}`);
-//   },
-// );
 
 // NEW HOTNESS
 router.get('/google/callback',
@@ -59,14 +45,4 @@ router.get('/google/callback',
     });
 });
 
-router.get('/logout', (req, res, next) => {
-  console.log('hey', req);
-  // req.session.destroy((err) => {
-  //   if (err) return next(err);
-  //   req.logout();
-  //   console.log('after logout req.user', req.user)
-  //   res.redirect('walksafe://login?user=' + JSON.stringify(req.user));
-  // })
-})
-
-module.exports = router;
+export default  router;

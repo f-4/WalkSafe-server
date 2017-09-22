@@ -15,7 +15,7 @@ import passport from 'passport';
 import GoogleStrategy from 'passport-google-oauth20';
 import FacebookStrategy from 'passport-facebook';
 
-console.log('Initalizing express in request-handler');
+console.log('Initalizing express in request-handler heyhey');
 const app = express();
 
 // // Passport session
