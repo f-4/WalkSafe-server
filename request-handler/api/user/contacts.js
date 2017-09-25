@@ -7,8 +7,6 @@ router.use(bodyParser.urlencoded({ extended: true }));
 router.use(bodyParser.json());
 
 router.get('/contacts', (req, res) => {
-  // hard code for now wait for passport session to be resolved
-  // const userId = '107291565452880607951'
   const userId = req.query.userId;
   console.log('GET contacts user id', userId);
 
