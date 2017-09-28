@@ -2,9 +2,10 @@ import express from 'express';
 import session from 'express-session';
 import passport from 'passport';
 import jwt from 'jsonwebtoken';
+
 const router = express.Router();
 
-router.use((req, res, next) => {console.log('auth.js, line14', req.session); next()});
+router.use((req, res, next) => { console.log('auth.js, line14', req.session); next(); });
 router.get('/facebook', passport.authenticate('facebook'));
 
 router.get(

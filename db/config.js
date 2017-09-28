@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const readModels = require('./utils/read-models.js');
+const readModels = require('./utils/read-models');
 
 // console.log('process.env.DB_URL:', process.env.DB_URL);
 const sequelize = new Sequelize('walksafe', process.env.DB_USERNAME || 'postgres', process.env.DB_PASSWORD || 'root', {

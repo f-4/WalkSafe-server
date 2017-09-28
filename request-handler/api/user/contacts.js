@@ -36,7 +36,6 @@ router.get('/contacts', (req, res) => {
 });
 
 router.post('/contacts', (req, res) => {
-
   const userId = req.body.userId;
   const contactName = req.body.contactName;
   const contactNumber = req.body.contactNumber;

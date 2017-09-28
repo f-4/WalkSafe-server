@@ -4,7 +4,7 @@ module.exports = function MarkerSchema(sequelize, DataTypes) {
     title: DataTypes.STRING,
     subtitle: DataTypes.STRING,
     latitude: DataTypes.FLOAT,
-    longitude: DataTypes.FLOAT
+    longitude: DataTypes.FLOAT,
   });
 
   Marker.associate = function ContactAssociate(models) {
