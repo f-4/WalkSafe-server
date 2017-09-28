@@ -22,4 +22,4 @@ router.get('/user', (req, res) => {
     });
 });
 
-export default router;
+module.exports = router;

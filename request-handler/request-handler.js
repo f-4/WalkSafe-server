@@ -23,11 +23,11 @@ const app = express();
 // }));
 
 // JWT SESSIONS
-// app.use(expressJWT({
-//   secret: 'in da hood'
-// }).unless({
-//   path: ['/api/auth/google', '/api/auth/google/callback', '/api/auth/facebook', '/api/auth/facebook/callback']
-// }));
+app.use(expressJWT({
+  secret: 'in da hood'
+}).unless({
+  path: ['/api/auth/google', '/api/auth/google/callback', '/api/auth/facebook', '/api/auth/facebook/callback']
+}));
 
 const transformFacebookProfile = profile => ({
   name: profile.name,

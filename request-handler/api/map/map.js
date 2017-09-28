@@ -91,4 +91,4 @@ router.get('/directions', (req, res) => {
     .catch(err => res.status(404).send('Bad Request'));
 });
 
-export default router;
+module.exports = router;

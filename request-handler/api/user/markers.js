@@ -99,4 +99,4 @@ router.delete('/markers', (req, res) => {
     });
 });
 
-export default router;
+module.exports = router;
