@@ -9,10 +9,10 @@
 1. [Demo](#demo)
 1. [Initial Setup](#initial-setup)
 1. [Seeding Databases](#seeding-databases)
-  1. [Auto-Seed Local Database](#auto-seed-local-database)
-  1. [Auto-Seed AWS EC2 Database](#auto-seed-aws-ec2-database)
-  1. [Seed AWS EC2 Database](#seed-aws-ec2-database)
-  1. [Seed AWS RDS Database](#seed-aws-rds-database)
+    1. [Auto-Seed Local Database](#auto-seed-local-database)
+    1. [Auto-Seed AWS EC2 Database](#auto-seed-aws-ec2-database)
+    1. [Seed AWS EC2 Database](#seed-aws-ec2-database)
+    1. [Seed AWS RDS Database](#seed-aws-rds-database)
 1. [Requirements](#requirements)
 1. [Development](#development)
     1. [Installing Dependencies](#installing-dependencies)
@@ -42,9 +42,6 @@ View a video of WalkSafe in action [here](https://www.youtube.com/watch?v=R41ELs
 1. In your terminal from within the root directory of your WalkSafe Server folder:
 ```sh
 npm install
-```
-1. Start WalkSafe Server by typing:
-```sh
 npm start
 ```
 
@@ -59,7 +56,7 @@ npm start
 
 ### Auto-Seed Local Database
 
-- From within the root directory:
+From within the root directory:
 ```sh
 npm run seed
 ```
@@ -96,7 +93,7 @@ npm run seed
 
 ### Installing Dependencies
 
-- From within the root directory:
+From within the root directory:
 ```sh
 npm install
 ```
@@ -118,12 +115,13 @@ npm install
 1. Click Create
 1. Click Extension
 1. Under the General Tab go to the Name field and select 'postgis'
-  1. If PostGIS is not here try manually adding it in terminal:
+
+- If PostGIS is not here try manually adding it in terminal:
   ```sh
   psql -d walksafe -c "CREATE EXTENSION postgis;"
   ```
-  1. If PostGIS is still undetected make sure you have downloaded and installed [PostGIS](http://postgis.net/install)
-1. Tables are located under Schema > Public > Tables
+- If PostGIS is still undetected make sure you have downloaded and installed [PostGIS](http://postgis.net/install)
+- Tables are located under Schema > Public > Tables
 
 ### Developing Heatmap
 
