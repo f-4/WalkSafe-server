@@ -52,14 +52,24 @@ npm start
 ## Seeding Databases
 
 1. Add csv files to /db/csv/
-1. Change seed.js to reflect csv files added
+2. Change seed.js to reflect csv files added
 
 ### Auto-Seed Local Database
 
-From within the root directory:
+3. From within the root directory:
 ```sh
 npm run seed
 ```
+
+### Seed AWS EC2 Database
+3. Open up PSQL shell on local computer
+4. Connect to EC2 DB with team username and password
+5. Use \copy command to upload csv files into the EC2 DB
+
+### Seed AWS RDS Database
+3. Open up PSQL shell on local computer
+4. Connect to RDS DB with team username and password
+5. Use \copy command to upload csv files into the RDS DB
 
 ### Auto-Seed AWS EC2 Database
 1. SSH into EC2 DB
@@ -68,15 +78,6 @@ npm run seed
 ```
 npm run seed
 ```
-### Seed AWS EC2 Database
-1. Open up PSQL shell on local computer
-1. Connect to EC2 DB with team username and password
-1. Use \copy command to upload csv files into the EC2 DB
-
-### Seed AWS RDS Database
-1. Open up PSQL shell on local computer
-1. Connect to RDS DB with team username and password
-1. Use \copy command to upload csv files into the RDS DB
 
 ## Requirements
 
