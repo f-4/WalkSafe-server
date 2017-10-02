@@ -4,34 +4,34 @@ const path = require('path');
 
 // INSERT USER AND CRIME CATEGORY
 const dbcreatUser = () => db.user.create({
-      username: 'sonrisa chen',
-      email: 'fantastic4@gmail.com',
-      avatar: 'https://avatars2.githubusercontent.com/u/31486494?v=4&s=200',
-      accessToken: 'abc123',
-      google_token:'abc12345',
-      google_id:'107291565452880607951',
-      contacts: [
-        {
-          contact_name: 'Human Torch',
-          phone_number: 1234567890,
-        },
-        {
-          contact_name: 'The Thing',
-          phone_number: 10000000000
+  username: 'sonrisa chen',
+  email: 'fantastic4@gmail.com',
+  avatar: 'https://avatars2.githubusercontent.com/u/31486494?v=4&s=200',
+  accessToken: 'abc123',
+  google_token: 'abc12345',
+  google_id: '107291565452880607951',
+  contacts: [
+    {
+      contact_name: 'Human Torch',
+      phone_number: 1234567890,
+    },
+    {
+      contact_name: 'The Thing',
+      phone_number: 10000000000,
 
-        },
-        {
-          contact_name: 'Mr. Fantastic',
-          phone_number: 1111112222,
-        },
-        {
-          contact_name: 'Ms. Fantastic',
-          phone_number: 2222222222,
-        },
-      ],
-    }, {
-      include: [db.contact],
-    });
+    },
+    {
+      contact_name: 'Mr. Fantastic',
+      phone_number: 1111112222,
+    },
+    {
+      contact_name: 'Ms. Fantastic',
+      phone_number: 2222222222,
+    },
+  ],
+}, {
+  include: [db.contact],
+});
 
 const dbcrimeType = () => db.crime_type.bulkCreate([
   { type: 'CRIMINAL HOMICIDE' },
@@ -128,25 +128,14 @@ const dbSpacialSF = () => db.sequelize.query(queryStringTransformGeomSF);
 const dbclose = () => db.sequelize.close();
 
 
-
 // DB SYNC START
 db.sequelize.sync({
   force: true,
 })
-  .then(() => {
-    return Promise.all([dbcreatUser(), dbcrimeType()])
-  })
-  .then(() => {
-    return Promise.all([dbinputSFdata(), dbinputLAdata()])
-  })
+  .then(() => Promise.all([dbcreatUser(), dbcrimeType()]))
+  .then(() => Promise.all([dbinputSFdata(), dbinputLAdata()]))
   .then(dbcleanLAdata)
-  .then(() => {
-    return Promise.all([dbtransformLAdata(), dbtransformSFdata()])
-  })
-  .then(() => {
-    return Promise.all([dbfilterLAdata(), dbfilterSFdata()])
-  })
-  .then(() => {
-    return Promise.all([dbSpacialLA(), dbSpacialSF()])
-  })
+  .then(() => Promise.all([dbtransformLAdata(), dbtransformSFdata()]))
+  .then(() => Promise.all([dbfilterLAdata(), dbfilterSFdata()]))
+  .then(() => Promise.all([dbSpacialLA(), dbSpacialSF()]))
   .then(dbclose);

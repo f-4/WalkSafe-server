@@ -1,5 +1,5 @@
 import db from './../config.js';
-import User from './../models/base-models/user.js';
+import User from './../models/base-models/user';
 
 
 exports.getExistUser = userid => db.user.findAll({

@@ -2,7 +2,6 @@ import { google, facebook } from './../config';
 import db from'../db/config';
 import { express, router } from'./api/api.js';
 
-
 import session from'express-session';
 import expressJWT from 'express-jwt';
 import jwt from 'jsonwebtoken';
@@ -24,11 +23,11 @@ const app = express();
 // }));
 
 // JWT SESSIONS
-// app.use(expressJWT({
-//   secret: 'in da hood'
-// }).unless({
-//   path: ['/api/auth/google', '/api/auth/google/callback', '/api/auth/facebook', '/api/auth/facebook/callback']
-// }));
+app.use(expressJWT({
+  secret: 'in da hood'
+}).unless({
+  path: ['/api/auth/google', '/api/auth/google/callback', '/api/auth/facebook', '/api/auth/facebook/callback']
+}));
 
 const transformFacebookProfile = profile => ({
   name: profile.name,
@@ -79,10 +78,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-
 app.use('/api', router);
-// THIS IS A BAD WAY TO SAVE SESSIONS
-// USE A DIFFERENT METHOD FOR PRODUCTION
-
 
 module.exports = app;
